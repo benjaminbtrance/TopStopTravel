@@ -1,5 +1,6 @@
 var searchCityEl = document.querySelector('#city-search');
 var searchCityBtn = document.querySelector('#city-search-btn');
+var musicEventEl = document.querySelector('#music-event-el');
 
 var ticketmasterAPIKey = 'hEhL4sdCUANVnAj4AMyPUUR9qmmjMvXb';
 var openWeatherAPIKey = 'bc2194bf2b678d6ec02f05146c48236e';
@@ -22,6 +23,10 @@ function handleSearchFormSubmit(event) {
   getTicketMasterMusicEvents(encodedCity);
 }
 
+function createCard {
+	document.createElement('div')
+}
+
 function getTicketMasterMusicEvents(city) {
   var apiUrl =
     'https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&city=' +
@@ -34,6 +39,7 @@ function getTicketMasterMusicEvents(city) {
       if (response.ok) {
         response.json().then(function (data) {
           console.log(data);
+
         });
       } else {
         console.warn(response.statusText);
