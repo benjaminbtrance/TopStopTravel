@@ -56,14 +56,14 @@ function createTicketMasterCard() {
   divColumn.className = 'column';
   divCallout.className = 'callout';
 
+  musicEventEl.appendChild(divColumn);
+  divColumn.appendChild(divCallout);
+
   for (i = 1; i < 5; i++) {
     var p = document.createElement('p');
     p.setAttribute('class', `p${i}`);
     divCallout.appendChild(p);
   }
-
-  musicEventEl.appendChild(divColumn);
-  divColumn.appendChild(divCallout);
 
   console.log(musicEventEl);
 }
@@ -75,14 +75,14 @@ function createWeatherCard() {
   divColumn.className = 'column';
   divCallout.className = 'callout';
 
+  musicEventEl.appendChild(divColumn);
+  divColumn.appendChild(divCallout);
+
   for (i = 1; i < 5; i++) {
     var p = document.createElement('p');
     p.setAttribute('class', `p${i}`);
     divCallout.appendChild(p);
   }
-
-  musicEventEl.appendChild(divColumn);
-  divColumn.appendChild(divCallout);
 
   console.log(musicEventEl);
 }
