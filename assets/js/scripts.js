@@ -1,5 +1,6 @@
 var searchCityEl = document.querySelector('#city-search');
 var searchCityBtn = document.querySelector('#city-search-btn');
+var searchForm = document.querySelector('#search-form');
 
 var ticketmasterAPIKey = 'hEhL4sdCUANVnAj4AMyPUUR9qmmjMvXb';
 var openWeatherAPIKey = 'bc2194bf2b678d6ec02f05146c48236e';
@@ -8,19 +9,42 @@ var openWeatherAPIKey = 'bc2194bf2b678d6ec02f05146c48236e';
 function handleSearchFormSubmit(event) {
   event.preventDefault();
 
-  var citySearchInputVal = document.querySelector('#city-search').value.trim();
+  var citySearchInputVal = searchCityEl.value.trim();
 
   if (!citySearchInputVal) {
-    console.error('You need a search input value!');
+
     return;
+  } else {
+    searchCityEl.value = "";
   }
 
   var splitCity = citySearchInputVal.split(' ');
-  var encodedCity = splitCity.join('%20');
+	var encodedCity = splitCity.join('%20');
 
-  // Call API functions
+	  // Call API functions
   getTicketMasterMusicEvents(encodedCity);
-  getTicketMasterSportEvents(encodedCity);
+	getWeatherForecast(encodedCity);
+	getTicketMasterSportEvents(encodedCity);
+}
+
+function getWeatherForecast(city){
+	var apiURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&APPID=" + 
+		openWeatherAPIKey;
+	
+	fetch(apiURL)
+		.then(function (response) {
+			if (response.ok) {
+				response.json().then(function (data) {
+					console.log(data);
+				});
+			} else {
+				console.warn(response.statusText);
+			}
+		})
+		.catch(function (error) {
+			console.warn('Unable to connect to API');
+		})
+
 }
 
 function getTicketMasterMusicEvents(city) {
@@ -70,4 +94,4 @@ function getTicketMasterSportEvents(city) {
 
 
 // Click Event
-searchCityBtn.addEventListener('click', handleSearchFormSubmit);
+searchForm.addEventListener('submit', handleSearchFormSubmit);
