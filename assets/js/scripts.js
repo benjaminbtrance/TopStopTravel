@@ -4,7 +4,6 @@ var searchForm = document.querySelector('#search-form');
 
 var ticketmasterAPIKey = 'hEhL4sdCUANVnAj4AMyPUUR9qmmjMvXb';
 var openWeatherAPIKey = 'bc2194bf2b678d6ec02f05146c48236e';
-var restaurantAPIKey = "3ac8681357msh82989b005de7f4cp1ef7ccjsnb01cfab978ea";
 
 // Handles Form Event
 function handleSearchFormSubmit(event) {
@@ -26,10 +25,9 @@ function handleSearchFormSubmit(event) {
   getTicketMasterMusicEvents(encodedCity);
 	getWeatherForecast(encodedCity);
 	getTicketMasterSportEvents(encodedCity);
-	getBestRestaurants();
 }
 
-function getWeatherForecast(city) {
+function getWeatherForecast(city){
 	var apiURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&APPID=" + 
 		openWeatherAPIKey;
 	
@@ -47,25 +45,6 @@ function getWeatherForecast(city) {
 			console.warn('Unable to connect to API');
 		})
 
-}
-
-function getBestRestaurants() {
-  var apiURL = "axesso-tripadvisor-data-service.p.rapidapi.com" +
-	restaurantAPIKey;
-  
-  fetch(apiURL)
-		.then(function (response) {
-			if (response.ok) {
-				response.json().then(function (data) {
-					console.log(data);
-				});
-			} else {
-				console.warn(response.statusText);
-			}
-		})
-		.catch(function (error) {
-			console.warn('Unable to connect to API');
-		})
 }
 
 function getTicketMasterMusicEvents(city) {
