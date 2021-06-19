@@ -8,29 +8,28 @@ var openWeatherAPIKey = 'bc2194bf2b678d6ec02f05146c48236e';
 
 // Handles Form Event
 function handleSearchFormSubmit(event) {
-  event.preventDefault();
+	event.preventDefault();
 
-  var citySearchInputVal = searchCityEl.value.trim();
+	var citySearchInputVal = searchCityEl.value.trim();
 
-  if (!citySearchInputVal) {
+	if (!citySearchInputVal) {
+		return;
+	} else {
+		searchCityEl.value = '';
+	}
 
-    return;
-  } else {
-    searchCityEl.value = "";
-  }
-
-  var splitCity = citySearchInputVal.split(' ');
+	var splitCity = citySearchInputVal.split(' ');
 	var encodedCity = splitCity.join('%20');
 
-	  // Call API functions
-  getTicketMasterMusicEvents(encodedCity);
+	// Call API functions
+	getTicketMasterMusicEvents(encodedCity);
 	getWeatherForecast(encodedCity);
 }
 
-function getWeatherForecast(city){
-	var apiURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&APPID=" + 
+function getWeatherForecast(city) {
+	var apiURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&APPID=" +
 		openWeatherAPIKey;
-	
+
 	fetch(apiURL)
 		.then(function (response) {
 			if (response.ok) {
@@ -52,26 +51,26 @@ function createCard {
 }
 
 function getTicketMasterMusicEvents(city) {
-  var apiUrl =
-    'https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&city=' +
-    city +
-    '&apikey=' +
-    ticketmasterAPIKey;
+	var apiUrl =
+		'https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&city=' +
+		city +
+		'&apikey=' +
+		ticketmasterAPIKey;
 
-  fetch(apiUrl)
-    .then(function (response) {
-      if (response.ok) {
-        response.json().then(function (data) {
-          console.log(data);
+	fetch(apiUrl)
+		.then(function (response) {
+			if (response.ok) {
+				response.json().then(function (data) {
+					console.log(data);
 
-        });
-      } else {
-        console.warn(response.statusText);
-      }
-    })
-    .catch(function (error) {
-      console.warn('Unable to connect to API');
-    });
+				});
+			} else {
+				console.warn(response.statusText);
+			}
+		})
+		.catch(function (error) {
+			console.warn('Unable to connect to API');
+		});
 }
 
 // Click Event
