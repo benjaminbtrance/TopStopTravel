@@ -24,6 +24,7 @@ function handleSearchFormSubmit(event) {
 	  // Call API functions
   getTicketMasterMusicEvents(encodedCity);
 	getWeatherForecast(encodedCity);
+	getTicketMasterSportEvents(encodedCity);
 }
 
 function getWeatherForecast(city){
@@ -67,6 +68,30 @@ function getTicketMasterMusicEvents(city) {
       console.warn('Unable to connect to API');
     });
 }
+
+function getTicketMasterSportEvents(city) {
+	var apiUrl =
+		'https://app.ticketmaster.com/discovery/v2/events.json?classificationName=sport&city=' +
+		city +
+		'&apikey=' +
+		ticketmasterAPIKey;
+
+	fetch(apiUrl)
+		.then(function (response) {
+			if (response.ok) {
+				response.json().then(function (data) {
+					console.log(data);
+					console.log("Sport API Working");
+				});
+			} else {
+				console.warn(response.statusText);
+			}
+		})
+		.catch(function (error) {
+			console.warn('Unable to connect to API');
+		});
+}
+
 
 // Click Event
 searchForm.addEventListener('submit', handleSearchFormSubmit);
