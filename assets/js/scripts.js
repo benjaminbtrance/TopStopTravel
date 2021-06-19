@@ -18,14 +18,9 @@ function handleSearchFormSubmit(event) {
   var splitCity = citySearchInputVal.split(' ');
   var encodedCity = splitCity.join('%20');
 
-<<<<<<< HEAD
-	// Call API functions
-	getTicketMasterMusicEvents(encodedCity);
-	getTicketMasterSportEvents(encodedCity);
-=======
   // Call API functions
   getTicketMasterMusicEvents(encodedCity);
->>>>>>> 6e7cc77c79016cb98c9ae624686f7c49b23a2076
+  getTicketMasterSportEvents(encodedCity);
 }
 
 function getTicketMasterMusicEvents(city) {
@@ -62,6 +57,7 @@ function getTicketMasterSportEvents(city) {
 			if (response.ok) {
 				response.json().then(function (data) {
 					console.log(data);
+					console.log("Sport API Working");
 				});
 			} else {
 				console.warn(response.statusText);
