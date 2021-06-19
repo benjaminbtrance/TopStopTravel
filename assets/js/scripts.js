@@ -1,7 +1,9 @@
 var searchCityEl = document.querySelector('#city-search');
 var searchCityBtn = document.querySelector('#city-search-btn');
+var city = "";
 
 var ticketmasterAPIKey = 'hEhL4sdCUANVnAj4AMyPUUR9qmmjMvXb';
+var weatherAPIKey = "a0aca8a89948154a4182dcecc780b513";
 
 function handleSearchFormSubmit(event) {
 	event.preventDefault();
@@ -14,6 +16,26 @@ function handleSearchFormSubmit(event) {
 	}
 
 	getTicketMasterMusicEvents();
+	getWeatherForecast();
+}
+
+function getWeatherForecast(){
+	var apiURL = "https://api.openweathermap.org/data/2.5/weather?q=" +  + city + "&APPID=" + 
+		weatherAPIKey;
+	
+	fetch(apiURL)
+		.then(function (response) {
+			if (response.ok) {
+				response.json().then(function (data) {
+					console.log(data);
+				});
+			} else {
+				console.warn(response.statusText);
+			}
+		})
+		.catch(function (error) {
+			console.warn('Unable to connect to API');
+		})
 }
 
 function getTicketMasterMusicEvents() {
