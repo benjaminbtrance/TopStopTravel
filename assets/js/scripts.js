@@ -23,28 +23,27 @@ function handleSearchFormSubmit(event) {
 
 	  // Call API functions
   getTicketMasterMusicEvents(encodedCity);
-	getWeatherForecast(encodedCity);
-	getTicketMasterSportEvents(encodedCity);
+  getWeatherForecast(encodedCity);
+  getTicketMasterSportEvents(encodedCity);
 }
 
-function getWeatherForecast(city){
-	var apiURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&APPID=" + 
-		openWeatherAPIKey;
-	
-	fetch(apiURL)
-		.then(function (response) {
-			if (response.ok) {
-				response.json().then(function (data) {
-					console.log(data);
-				});
-			} else {
-				console.warn(response.statusText);
-			}
-		})
-		.catch(function (error) {
-			console.warn('Unable to connect to API');
-		})
+function createWeatherCard() {
+  var divColumn = document.createElement('div');
+  var divCallout = document.createElement('div');
 
+  divColumn.className = 'column';
+  divCallout.className = 'callout';
+
+  musicEventEl.appendChild(divColumn);
+  divColumn.appendChild(divCallout);
+
+  for (i = 1; i < 5; i++) {
+    var p = document.createElement('p');
+    p.setAttribute('class', `p${i}`);
+    divCallout.appendChild(p);
+  }
+
+  console.log(musicEventEl);
 }
 
 function getTicketMasterMusicEvents(city) {
@@ -92,6 +91,46 @@ function getTicketMasterSportEvents(city) {
 		});
 }
 
+function getWeatherForecast(city) {
+  var apiURL =
+    'https://api.openweathermap.org/data/2.5/weather?q=' +
+    city +
+    '&APPID=' +
+    openWeatherAPIKey;
+
+  fetch(apiURL)
+    .then(function (response) {
+      if (response.ok) {
+        response.json().then(function (data) {
+          console.log(data);
+        });
+      } else {
+        console.warn(response.statusText);
+      }
+    })
+    .catch(function (error) {
+      console.warn('Unable to connect to API');
+    });
+}
+
+function createTicketMasterCard() {
+  var divColumn = document.createElement('div');
+  var divCallout = document.createElement('div');
+
+  divColumn.className = 'column';
+  divCallout.className = 'callout';
+
+  musicEventEl.appendChild(divColumn);
+  divColumn.appendChild(divCallout);
+
+  for (i = 1; i < 5; i++) {
+    var p = document.createElement('p');
+    p.setAttribute('class', `p${i}`);
+    divCallout.appendChild(p);
+  }
+
+  console.log(musicEventEl);
+}
 
 // Click Event
 searchForm.addEventListener('submit', handleSearchFormSubmit);
