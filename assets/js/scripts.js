@@ -2,6 +2,7 @@ var searchCityEl = document.querySelector('#city-search');
 var searchCityBtn = document.querySelector('#city-search-btn');
 var searchForm = document.querySelector('#search-form');
 var musicEventEl = document.querySelector('#music-event-el');
+var sportEventEl = document.querySelector('#sport-event-el');
 
 var ticketmasterAPIKey = 'hEhL4sdCUANVnAj4AMyPUUR9qmmjMvXb';
 var openWeatherAPIKey = 'bc2194bf2b678d6ec02f05146c48236e';
@@ -85,6 +86,29 @@ function getTicketMasterSportEvents(city) {
 				response.json().then(function (data) {
 					// console.log(data);
 					// console.log('Sport API Working');
+          var sportEvents = data._embedded.events
+						.map((event) => {
+							var eventImg;
+							for (var i = 0; i < event.images.length; i++) {
+								if (event.images[i].height == 360) {
+									eventImg = event.images[i].url;
+								}
+							}
+
+							return `
+						<div class="column">
+							<div class="callout">
+								<p class="event-name">${event.name}</p>
+								<img class="event-img" src="${eventImg}" alt="${event.name} consert image"></img>
+								<p class="event-date">Date: ${event.dates.start.localDate}</p>
+								<p class="event-genre">Genre: ${event.classifications[0].genre.name}</p>
+								<a href="${event.url}" class="event-link" target="_blank">Get Ticket Information</a>
+							</div>
+						</div>
+						`;
+						})
+						.join('');
+					sportEventEl.insertAdjacentHTML('afterbegin', sportEvents);
 				});
 			} else {
 				console.warn(response.statusText);
