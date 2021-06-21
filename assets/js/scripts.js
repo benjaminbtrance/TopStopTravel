@@ -24,7 +24,7 @@ function handleSearchFormSubmit(event) {
 
 	// Call API functions
 	getTicketMasterMusicEvents(encodedCity);
-	getWeatherForecast(encodedCity);
+	getWeather(encodedCity);
 	getTicketMasterSportEvents(encodedCity);
 }
 
@@ -119,7 +119,7 @@ function getTicketMasterSportEvents(city) {
 		});
 }
 
-function getWeatherForecast(city) {
+function getWeather(city) {
 	var apiURL =
 		'https://api.openweathermap.org/data/2.5/weather?q=' +
 		city +
@@ -127,10 +127,34 @@ function getWeatherForecast(city) {
 		openWeatherAPIKey;
 
 	fetch(apiURL)
-		.then(function (response) {
+.then(function (response) {
 			if (response.ok) {
 				response.json().then(function (data) {
-					// console.log(data);
+					console.log(data);
+					getWeatherForecast(data.id);
+					// var weatherForecast = data._embedded.events
+					// 	.map((event) => {
+					// 		var eventImg;
+					// 		for (var i = 0; i < event.images.length; i++) {
+					// 			if (event.images[i].height == 360) {
+					// 				eventImg = event.images[i].url;
+					// 			}
+					// 		}
+
+					// 		return `
+					// 	<div class="column">
+					// 		<div class="callout">
+					// 			<p class="event-name">${event.name}</p>
+					// 			<img class="event-img" src="${eventImg}" alt="${event.name} consert image"></img>
+					// 			<p class="event-date">Date: ${event.dates.start.localDate}</p>
+					// 			<p class="event-genre">Genre: ${event.classifications[0].genre.name}</p>
+					// 			<a href="${event.url}" class="event-link" target="_blank">Get Ticket Information</a>
+					// 		</div>
+					// 	</div>
+					// 	`;
+					// 	})
+					// 	.join('');
+					// weatherForecast.insertAdjacentHTML('afterbegin', sportEvents);
 				});
 			} else {
 				console.warn(response.statusText);
@@ -139,25 +163,47 @@ function getWeatherForecast(city) {
 		.catch(function (error) {
 			console.warn('Unable to connect to API');
 		});
-}
+} 
 
-function createWeatherCard() {
-	var divColumn = document.createElement('div');
-	var divCallout = document.createElement('div');
+function getWeatherForecast(cityId) {
+	var apiURL = 
+	'https://api.openweathermap.org/data/2.5/forecast?id=' +
+	cityId +
+	'&appid=' +
+	openWeatherAPIKey;
+	fetch(apiURL)
+	.then(function (response) {
+			if (response.ok) {
+				response.json().then(function (data) {
+					console.log(data);
+					for (var i = 0; i < 5; i++) {
+						var findInList = (i + 1) * 8 - 1;
+						var date = new Date(
+							data.list[findInList].dt * 1000
+						).toLocaleDateString();
+						var iconcode = data.list[findInList].weather[0].icon;
+						var iconurl =
+							'https://openweathermap.org/img/wn/' + iconcode + '.png';
+						// get temp from main list
+						var temp = data.list[findInList].main.temp;
+						// convert to fahrenheit
+						var tempToFahrenheit = ((temp - 273.5) * 1.8 + 32).toFixed(2);
+						// get humidity from list
+						var humidity = data.list[findInList].main.humidity;
+						// get wind from list and conver it to mph
+						var windSpeed = data.list[findInList].wind.speed;
+						var windSpeedMph = (windSpeed * 2.237).toFixed(1); 
+						// console.log(date, iconurl, tempToFahrenheit, windSpeedMph)
 
-	divColumn.className = 'column';
-	divCallout.className = 'callout';
-
-	musicEventEl.appendChild(divColumn);
-	divColumn.appendChild(divCallout);
-
-	for (i = 1; i < 5; i++) {
-		var p = document.createElement('p');
-		p.setAttribute('class', `p${i}`);
-		divCallout.appendChild(p);
-	}
-
-	// console.log(musicEventEl);
+					}
+				});
+			} else {
+				console.warn(response.statusText);
+			}
+		})
+		.catch(function (error) {
+			console.warn('Unable to connect to API');
+		});
 }
 
 // Click Event
