@@ -14,10 +14,7 @@ h1 {
 body {
   padding-top: 50px;
 }
-@media (max-width: 979px) {
-  body {
-    padding-top: 0px;
-  }
+
 .weather-column {
   width: 20%;
 }
@@ -27,4 +24,9 @@ body {
   padding: 16px;
   text-align: center;
   background-color: #ccdadb;
+}
+@media (max-width: 979px) {
+  body {
+    padding-top: 0px;
+  }
 }
