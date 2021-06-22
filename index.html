@@ -26,20 +26,19 @@
       <div>
         <div class="top-bar-left">
         <ul class="menu" data-responsive-menu="accordion">
-          <li class="menu-text">Interplanetary</li>
+          <li class="menu-text">TopStop Travel</li>
           <li><a href="#weatherHeader">Weather</a></li>
           <li><a href="#musicHeader">Music Events</a></li>
           <li><a href="#sportHeader">Sport Events</a></li>
-          <li><a href="#restaurantsHeader">Restaurants</a></li>
+          
         </ul>
       </div>
-      </div>
-      <div class="top-bar-right">
+      <!-- <div class="top-bar-right">
         <ul class="menu">
           <li><a href="#">My Account</a></li>
           <li><a class="button">Login</a></li>
         </ul>
-      </div>
+      </div> -->
     </div>
     <!-- /Navigation -->
 
@@ -56,12 +55,16 @@
       
       </div>
 
-      <div class="show-for-large large-3 columns">
-        <img
-          src="http://placehold.it/400x370&text=PSR1257 + 12 C"
-          alt="picture of space"
-        />
-      </div>
+			<div class="weather-column column">
+				<div class="weather-card">
+          <h4 id="current-city">City: </h4>
+					<h4><p id="today-date">Date: </p></h4>
+					<p id="today-Img"></p>
+					<p>Temp: <span id="today-temp"></span></p>
+					<p>Wind: <span id="today-wind"></span></p>
+					<p>Humidity: <span id="today-humidity"></span></p>
+				</div>
+			</div>
 
       <!-- Search City Form -->
       <div class="medium-5 large-3 columns">
@@ -95,15 +98,59 @@
 
     <!-- Display Weather -->
     <div class="row column">
-      <p
-      id="weatherHeader"
-      class="lead">Weather</p>
-    </div>
-
-    <div
-      id="weather-forcast-el"
-      class="row small-up-1 medium-up-2 large-up-3"
-    ></div>
+			<div class="row column">
+				<p class="lead"><B>Weather</B></p>
+			</div>
+			<div class="row">
+				<div class="weather-column column">
+					<div class="weather-card">
+						<p id="Date0"></p>
+						<p id="Img0"></p>
+						<p>Temp: <span id="Temp0"></span></p>
+						<p>Wind: <span id="Wind0"></span></p>
+						<p>Humidity: <span id="Humidity0"></span></p>
+					</div>
+				</div>
+			
+				<div class="weather-column column">
+					<div class="weather-card">
+						<p id="Date1"></p>
+						<p id="Img1"></p>
+						<p>Temp: <span id="Temp1"></span></p>
+						<p>Wind: <span id="Wind1"></span></p>
+						<p>Humidity: <span id="Humidity1"></span></p>
+					</div>
+				</div>
+				
+				<div class="weather-column column">
+					<div class="weather-card">
+						<p id="Date2"></p>
+						<p id="Img2"></p>
+						<p>Temp: <span id="Temp2"></span></p>
+						<p>Wind: <span id="Wind2"></span></p>
+						<p>Humidity: <span id="Humidity2"></span></p>
+					</div>
+				</div>
+				
+				<div class="weather-column column">
+					<div class="weather-card">
+						<p id="Date3"></p>
+						<p id="Img3"></p>
+						<p>Temp: <span id="Temp3"></span></p>
+						<p>Wind: <span id="Wind3"></span></p>
+						<p>Humidity: <span id="Humidity3"></span></p>
+					</div>
+				</div>
+				<div class="weather-column column">
+					<div class="weather-card">
+						<p id="Date4"></p>
+						<p id="Img4"></p>
+						<p>Temp: <span id="Temp4"></span></p>
+						<p>Wind: <span id="Wind4"></span></p>
+						<p>Humidity: <span id="Humidity4"></span></p>
+					</div>
+				</div>
+			</div>
 
     <!-- Display Music -->
     <div class="row column">
@@ -129,14 +176,14 @@
       class="row small-up-1 medium-up-2 large-up-3"
     ></div>
 
-    <!-- Display Resturants -->
+    <!-- Display Resturants
     <div class="row column">
       <p
       id="restaurantsHeader"
       class="lead">Resturants</p>
     </div>
 
-    <div id="resturants-el" class="row small-up-1 medium-up-2 large-up-3"></div>
+    <div id="resturants-el" class="row small-up-1 medium-up-2 large-up-3"></div> -->
 
     <footer>
       <div class="row expanded callout secondary">
@@ -146,7 +193,6 @@
             <li><a href="#weatherHeader">Weather</a></li>
             <li><a href="#musicHeader">Music</a></li>
             <li><a href="#sportHeader">Sports</a></li>
-            <li><a href="#restaurantsHeader">Resturants</a></li>
           </ul>
         </div>
 
@@ -168,22 +214,8 @@
           </ul>
         </div>
       </div>
-      <div class="row">
-        <div class="medium-6 columns">
-          <ul class="menu">
-            <li><a href="#">Legal</a></li>
-            <li><a href="#">Partner</a></li>
-            <li><a href="#">Explore</a></li>
-          </ul>
-        </div>
-
-        <div class="medium-6 columns">
-          <ul class="menu float-right">
-            <li class="menu-text">Copyright</li>
-          </ul>
-        </div>
-      </div>
-    </footer>
+      
+   </footer>
 
     <!-- Foundation CSS -->
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>

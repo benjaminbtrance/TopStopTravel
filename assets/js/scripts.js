@@ -24,7 +24,7 @@ function handleSearchFormSubmit(event) {
 
 	// Call API functions
 	getTicketMasterMusicEvents(encodedCity);
-	getWeather(encodedCity);
+	getWeather(citySearchInputVal);
 	getTicketMasterSportEvents(encodedCity);
 }
 
@@ -86,7 +86,7 @@ function getTicketMasterSportEvents(city) {
 				response.json().then(function (data) {
 					// console.log(data);
 					// console.log('Sport API Working');
-          var sportEvents = data._embedded.events
+					var sportEvents = data._embedded.events
 						.map((event) => {
 							var eventImg;
 							for (var i = 0; i < event.images.length; i++) {
@@ -127,34 +127,29 @@ function getWeather(city) {
 		openWeatherAPIKey;
 
 	fetch(apiURL)
-.then(function (response) {
+		.then(function (response) {
 			if (response.ok) {
 				response.json().then(function (data) {
 					console.log(data);
 					getWeatherForecast(data.id);
-					// var weatherForecast = data._embedded.events
-					// 	.map((event) => {
-					// 		var eventImg;
-					// 		for (var i = 0; i < event.images.length; i++) {
-					// 			if (event.images[i].height == 360) {
-					// 				eventImg = event.images[i].url;
-					// 			}
-					// 		}
-
-					// 		return `
-					// 	<div class="column">
-					// 		<div class="callout">
-					// 			<p class="event-name">${event.name}</p>
-					// 			<img class="event-img" src="${eventImg}" alt="${event.name} consert image"></img>
-					// 			<p class="event-date">Date: ${event.dates.start.localDate}</p>
-					// 			<p class="event-genre">Genre: ${event.classifications[0].genre.name}</p>
-					// 			<a href="${event.url}" class="event-link" target="_blank">Get Ticket Information</a>
-					// 		</div>
-					// 	</div>
-					// 	`;
-					// 	})
-					// 	.join('');
-					// weatherForecast.insertAdjacentHTML('afterbegin', sportEvents);
+					$('#current-city').html(city.toUpperCase());
+					var date = new Date(
+						data.dt * 1000
+					).toLocaleDateString();
+					$('#today-date').html(date)
+					var iconcode = data.weather[0].icon;
+					var iconurl =
+						'https://openweathermap.org/img/wn/' + iconcode + '.png';
+					$('#today-Img').html('<img src=' + iconurl + '>');
+	
+					var tempF = (data.main.temp - 273.15) * 1.80 + 32;
+					$('#today-temp').html((tempF).toFixed(2)+"&#8457");
+					// Display the Humidity
+					$('#today-humidity').html(data.main.humidity+"%");
+					//Display Wind speed and convert to MPH
+					var ws=data.wind.speed;
+					var windsmph=(ws*2.237).toFixed(1);
+					$('#today-wind').html(windsmph +' MPH');
 				});
 			} else {
 				console.warn(response.statusText);
@@ -163,16 +158,16 @@ function getWeather(city) {
 		.catch(function (error) {
 			console.warn('Unable to connect to API');
 		});
-} 
+}
 
 function getWeatherForecast(cityId) {
-	var apiURL = 
-	'https://api.openweathermap.org/data/2.5/forecast?id=' +
-	cityId +
-	'&appid=' +
-	openWeatherAPIKey;
+	var apiURL =
+		'https://api.openweathermap.org/data/2.5/forecast?id=' +
+		cityId +
+		'&appid=' +
+		openWeatherAPIKey;
 	fetch(apiURL)
-	.then(function (response) {
+		.then(function (response) {
 			if (response.ok) {
 				response.json().then(function (data) {
 					console.log(data);
@@ -192,9 +187,13 @@ function getWeatherForecast(cityId) {
 						var humidity = data.list[findInList].main.humidity;
 						// get wind from list and conver it to mph
 						var windSpeed = data.list[findInList].wind.speed;
-						var windSpeedMph = (windSpeed * 2.237).toFixed(1); 
-						// console.log(date, iconurl, tempToFahrenheit, windSpeedMph)
-
+						var windSpeedMph = (windSpeed * 2.237).toFixed(1);
+						//putting all data from the variables of date, img, temp, wind, and humidity on the index page
+						$('#Date' + i).html(date);
+						$('#Img' + i).html('<img src=' + iconurl + '>');
+						$('#Temp' + i).html(tempToFahrenheit + ' &#8457');
+						$('#Wind' + i).html(windSpeedMph + ' MPH');
+						$('#Humidity' + i).html(humidity + '%');
 					}
 				});
 			} else {
@@ -205,6 +204,5 @@ function getWeatherForecast(cityId) {
 			console.warn('Unable to connect to API');
 		});
 }
-
 // Click Event
 searchForm.addEventListener('submit', handleSearchFormSubmit);
