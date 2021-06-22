@@ -26,6 +26,7 @@ function handleSearchFormSubmit(event) {
 	getTicketMasterMusicEvents(encodedCity);
 	getWeather(encodedCity);
 	getTicketMasterSportEvents(encodedCity);
+	getYelpRestaurants();
 }
 
 function getTicketMasterMusicEvents(city) {
@@ -79,44 +80,6 @@ function getTicketMasterSportEvents(city) {
 		city +
 		'&apikey=' +
 		ticketmasterAPIKey;
-
-	fetch(apiUrl)
-		.then(function (response) {
-			if (response.ok) {
-				response.json().then(function (data) {
-					// console.log(data);
-					// console.log('Sport API Working');
-					var sportEvents = data._embedded.events
-						.map((event) => {
-							var eventImg;
-							for (var i = 0; i < event.images.length; i++) {
-								if (event.images[i].height == 360) {
-									eventImg = event.images[i].url;
-								}
-							}
-
-							return `
-						<div class="column">
-							<div class="callout">
-								<p class="event-name">${event.name}</p>
-								<img class="event-img" src="${eventImg}" alt="${event.name} consert image"></img>
-								<p class="event-date">Date: ${event.dates.start.localDate}</p>
-								<p class="event-genre">Genre: ${event.classifications[0].genre.name}</p>
-								<a href="${event.url}" class="event-link" target="_blank">Get Ticket Information</a>
-							</div>
-						</div>
-						`;
-						})
-						.join('');
-					sportEventEl.insertAdjacentHTML('afterbegin', sportEvents);
-				});
-			} else {
-				console.warn(response.statusText);
-			}
-		})
-		.catch(function (error) {
-			console.warn('Unable to connect to API');
-		});
 }
 
 function getWeather(city) {
@@ -209,5 +172,37 @@ function getWeatherForecast(cityId) {
 			console.warn('Unable to connect to API');
 		});
 }
+
+function getYelpRestaurants() {
+	var myHeaders = new Headers();
+	myHeaders.append(
+		'Authorization',
+		'Bearer n8v2E5TjbPihl_o58Kh51R69ZdFoREVokJmxAYCwAiLiZLyq_o5MXf2zer6UbAFvqn4YjPXjyAs6lw_KBD3JJKV5l62Ej4-9i7dotEILtxMf0GLJhk5NRwrTf0DRYHYx'
+	);
+
+	var requestOptions = {
+		method: 'GET',
+		headers: myHeaders,
+		redirect: 'follow',
+	};
+
+	fetch(
+		'https://api.yelp.com/v3/businesses/search?term=restaurants&location=torrance',
+		requestOptions
+	)
+		.then(function (response) {
+			if (response.ok) {
+				response.json().then(function (data) {
+					console.log(data);
+				});
+			} else {
+				console.warn(response.statusText);
+			}
+		})
+		.catch(function (error) {
+			console.warn('Unable to connect to API');
+		});
+}
+
 // Click Event
 searchForm.addEventListener('submit', handleSearchFormSubmit);
