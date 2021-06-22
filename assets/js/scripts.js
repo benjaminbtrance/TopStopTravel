@@ -86,7 +86,7 @@ function getTicketMasterSportEvents(city) {
 				response.json().then(function (data) {
 					// console.log(data);
 					// console.log('Sport API Working');
-          var sportEvents = data._embedded.events
+					var sportEvents = data._embedded.events
 						.map((event) => {
 							var eventImg;
 							for (var i = 0; i < event.images.length; i++) {
@@ -127,7 +127,7 @@ function getWeather(city) {
 		openWeatherAPIKey;
 
 	fetch(apiURL)
-.then(function (response) {
+		.then(function (response) {
 			if (response.ok) {
 				response.json().then(function (data) {
 					console.log(data);
@@ -163,7 +163,7 @@ function getWeather(city) {
 		.catch(function (error) {
 			console.warn('Unable to connect to API');
 		});
-} 
+}
 
 function getWeatherForecast(cityId) {
 	var apiURL =
@@ -176,32 +176,30 @@ function getWeatherForecast(cityId) {
 			if (response.ok) {
 				response.json().then(function (data) {
 					console.log(data);
-					var displayForecast = data.list.map((event) => {
-						for (var i = 0; i < 5; i++) {
-							var findInList = (((i + 1) * 8) - 1);
-							var date = new Date(
-								data.list[findInList].dt * 1000
-							).toLocaleDateString();
-							var iconcode = data.list[findInList].weather[0].icon;
-							var iconurl =
-								'https://openweathermap.org/img/wn/' + iconcode + '.png';
-							// get temp from main list
-							var temp = data.list[findInList].main.temp;
-							// convert to fahrenheit
-							var tempToFahrenheit = ((temp - 273.5) * 1.8 + 32).toFixed(2);
-							// get humidity from list
-							var humidity = data.list[findInList].main.humidity;
-							// get wind from list and conver it to mph
-							var windSpeed = data.list[findInList].wind.speed;
-							var windSpeedMph = (windSpeed * 2.237).toFixed(1);
-							//putting all data from the variables of date, img, temp, wind, and humidity on the index page 
-							$("#Date"+i).html(date);
-							$("#Img"+i).html("<img src="+iconurl+">");
-							$("#Temp"+i).html(tempToFahrenheit+" &#8457");
-							$("#Wind"+i).html(windSpeedMph+" MPH");
-							$("#Humidity"+i).html(humidity+"%");
-						}
-					});
+					for (var i = 0; i < 5; i++) {
+						var findInList = (i + 1) * 8 - 1;
+						var date = new Date(
+							data.list[findInList].dt * 1000
+						).toLocaleDateString();
+						var iconcode = data.list[findInList].weather[0].icon;
+						var iconurl =
+							'https://openweathermap.org/img/wn/' + iconcode + '.png';
+						// get temp from main list
+						var temp = data.list[findInList].main.temp;
+						// convert to fahrenheit
+						var tempToFahrenheit = ((temp - 273.5) * 1.8 + 32).toFixed(2);
+						// get humidity from list
+						var humidity = data.list[findInList].main.humidity;
+						// get wind from list and conver it to mph
+						var windSpeed = data.list[findInList].wind.speed;
+						var windSpeedMph = (windSpeed * 2.237).toFixed(1);
+						//putting all data from the variables of date, img, temp, wind, and humidity on the index page
+						$('#Date' + i).html(date);
+						$('#Img' + i).html('<img src=' + iconurl + '>');
+						$('#Temp' + i).html(tempToFahrenheit + ' &#8457');
+						$('#Wind' + i).html(windSpeedMph + ' MPH');
+						$('#Humidity' + i).html(humidity + '%');
+					}
 				});
 			} else {
 				console.warn(response.statusText);
