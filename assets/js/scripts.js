@@ -24,7 +24,7 @@ function handleSearchFormSubmit(event) {
 
 	// Call API functions
 	getTicketMasterMusicEvents(encodedCity);
-	getWeather(encodedCity);
+	getWeather(citySearchInputVal);
 	getTicketMasterSportEvents(encodedCity);
 }
 
@@ -132,29 +132,24 @@ function getWeather(city) {
 				response.json().then(function (data) {
 					console.log(data);
 					getWeatherForecast(data.id);
-					// var weatherForecast = data._embedded.events
-					// 	.map((event) => {
-					// 		var eventImg;
-					// 		for (var i = 0; i < event.images.length; i++) {
-					// 			if (event.images[i].height == 360) {
-					// 				eventImg = event.images[i].url;
-					// 			}
-					// 		}
-
-					// 		return `
-					// 	<div class="column">
-					// 		<div class="callout">
-					// 			<p class="event-name">${event.name}</p>
-					// 			<img class="event-img" src="${eventImg}" alt="${event.name} consert image"></img>
-					// 			<p class="event-date">Date: ${event.dates.start.localDate}</p>
-					// 			<p class="event-genre">Genre: ${event.classifications[0].genre.name}</p>
-					// 			<a href="${event.url}" class="event-link" target="_blank">Get Ticket Information</a>
-					// 		</div>
-					// 	</div>
-					// 	`;
-					// 	})
-					// 	.join('');
-					// weatherForecast.insertAdjacentHTML('afterbegin', sportEvents);
+					$('#current-city').html(city.toUpperCase());
+					var date = new Date(
+						data.dt * 1000
+					).toLocaleDateString();
+					$('#today-date').html(date)
+					var iconcode = data.weather[0].icon;
+					var iconurl =
+						'https://openweathermap.org/img/wn/' + iconcode + '.png';
+					$('#today-Img').html('<img src=' + iconurl + '>');
+	
+					var tempF = (data.main.temp - 273.15) * 1.80 + 32;
+					$('#today-temp').html((tempF).toFixed(2)+"&#8457");
+					// Display the Humidity
+					$('#today-humidity').html(data.main.humidity+"%");
+					//Display Wind speed and convert to MPH
+					var ws=data.wind.speed;
+					var windsmph=(ws*2.237).toFixed(1);
+					$('#today-wind').html(windsmph +' MPH');
 				});
 			} else {
 				console.warn(response.statusText);
