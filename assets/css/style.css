@@ -1,6 +1,20 @@
 h1 {
   text-align: center;
 }
+
+.top-bar {
+  z-index: 5;
+  overflow: hidden;
+  position: fixed;
+  top: 0px;
+  display: block;
+  width: 100%; 
+}
+
+body {
+  padding-top: 50px;
+}
+
 .weather-column {
   width: 20%;
 }
@@ -10,4 +24,9 @@ h1 {
   padding: 16px;
   text-align: center;
   background-color: #ccdadb;
+}
+@media (max-width: 979px) {
+  body {
+    padding-top: 0px;
+  }
 }

@@ -22,23 +22,25 @@
       <div class="title-bar-title">Menu</div>
     </div>
 
-    <div class="top-bar" id="topStopTravelMenu">
-      <div class="top-bar-left">
-        <ul class="menu" data-responsive-menu="accordion">
-          <li class="menu-text">TopStop Travel</li>
-          <li><a href="#weatherHeader">Weather</a></li>
-          <li><a href="#musicHeader">Music Events</a></li>
-          <li><a href="#sportHeader">Sport Events</a></li>
-          
-        </ul>
+    <div class="top-bar" id="topStopTravelMenu" data-sticky-container>
+      <div>
+        <div class="top-bar-left">
+          <ul class="menu" data-responsive-menu="accordion">
+            <li class="menu-text">TopStop Travel</li>
+            <li><a href="#weatherHeader">Weather</a></li>
+            <li><a href="#musicHeader">Music Events</a></li>
+            <li><a href="#sportHeader">Sport Events</a></li>
+            
+          </ul>
+        </div>
       </div>
+    </div>
       <!-- <div class="top-bar-right">
         <ul class="menu">
           <li><a href="#">My Account</a></li>
           <li><a class="button">Login</a></li>
         </ul>
       </div> -->
-    </div>
     <!-- /Navigation -->
 
     <br />
@@ -49,7 +51,7 @@
         <p class="subheader">
           This is your one-stop shop to enjoy the best experiences
           around the city you're visiting, wheather it be for pleasure or business.
-          Having nearby experinces right at your fingertips has never been so easy! 
+          Having nearby experiences right at your fingertips has never been so easy! 
         </p>
       
       </div>
@@ -98,7 +100,7 @@
     <!-- Display Weather -->
     <div class="row column">
 			<div class="row column">
-				<p class="lead"><B>Weather</B></p>
+				<p id="weatherHeader" class="lead"><B>Weather</B></p>
 			</div>
 			<div class="row">
 				<div class="weather-column column">
@@ -155,7 +157,7 @@
     <div class="row column">
       <p
       id="musicHeader"
-      class="lead">Music Events</p>
+      class="lead"><strong>Music Events</strong></p>
     </div>
 
     <div
@@ -167,7 +169,7 @@
     <div class="row column">
       <p
       id="sportHeader"
-      class="lead">Sport Events</p>
+      class="lead"><strong>Sport Events</strong></p>
     </div>
 
     <div
